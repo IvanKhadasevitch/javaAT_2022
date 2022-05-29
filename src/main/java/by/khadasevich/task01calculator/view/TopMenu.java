@@ -14,7 +14,7 @@ public final class TopMenu {
      */
     public static CommandName getItem() {
         CommandName[] commandNames = CommandName.values();
-        for (int i = 0; i < commandNames.length - 1; i++) {
+        for (int i = 0; i < commandNames.length; i++) {
             String message = commandNames[i].getTitle();
             System.out.printf("%2d.%s%n", i, message);
         }
@@ -25,7 +25,7 @@ public final class TopMenu {
             try {
                 Scanner scanner = new Scanner(System.in);
                 item = scanner.nextInt();
-                if (0 <= item && item < commandNames.length - 1) {
+                if (0 <= item && item < commandNames.length) {
                     isValuableItem = true;
                 } else {
                     System.out.println("Invalid menu Item");
