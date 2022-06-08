@@ -14,7 +14,7 @@ public final class Controller {
     public void executeCommand() {
         Command command;
         do {
-            CommandName commandName = TopMenu.getItem();
+            CommandName commandName = TopMenu.getMenuItem();
             command = commandName.getCommand();
             if (command != null) {
                 command.execute();
