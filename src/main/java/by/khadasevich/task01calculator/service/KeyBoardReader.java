@@ -6,8 +6,6 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Encapsulate user's work with keyboard.
@@ -65,18 +63,8 @@ public final class KeyBoardReader implements ReadDoubleOfKeyBoard,
      */
     @Override
     public OperationName readOperationOfKeyBoard(final String message) {
-        // make Set of operation hot keys
-        Set<Character> operationHotKeys = new HashSet<>();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (var item : OperationName.values()) {
-            operationHotKeys.add(item.getHotKey());
-            stringBuilder.append(item.getHotKey())
-                    .append(" ")
-                    .append(item.getTitle())
-                    .append("; ");
-        }
-        String hotKeysView = stringBuilder.toString();
         // take and analise entered hot key
+        String hotKeysView = OperationName.getHotKeysView();
         System.setOut(new PrintStream(System.out, true,
                 StandardCharsets.UTF_8));
         System.out.println(message + hotKeysView);
@@ -88,16 +76,11 @@ public final class KeyBoardReader implements ReadDoubleOfKeyBoard,
                 InputStreamReader isr = new InputStreamReader(System.in,
                         StandardCharsets.UTF_8);
                 hotKey = (char) isr.read();
-                if (operationHotKeys.contains(hotKey)) {
-                    for (var item : OperationName.values()) {
-                        if (item.getHotKey() == hotKey) {
-                            result = item;
-                            break;
-                        }
-                    }
-                    isValuableInput = true;
-                } else {
+                result = OperationName.getOperationByHotKey(hotKey);
+                if (result == null) {
                     System.out.println(INVALID_VALUE);
+                } else {
+                    isValuableInput = true;
                 }
             } catch (NoSuchElementException | IOException exp) {
                 System.out.println(INVALID_VALUE);
