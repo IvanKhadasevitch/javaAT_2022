@@ -10,6 +10,11 @@ import static by.khadasevich.task01calculator.service.OperationName.*;
  */
 public final class Calculator implements Calculation {
     /**
+     * Message for user when calculation operation not defined.
+     */
+    private static final String NOT_DEFINED_OPERATION =
+            "Calculation operation not defined.";
+    /**
      * Singleton instance of Calculator.
      */
     public static final Calculator INSTANCE = new Calculator();
@@ -98,12 +103,15 @@ public final class Calculator implements Calculation {
      * @param firstArgument is double value for calculation
      * @param secondArgument is double value for calculation
      * @param operation is type of operation
-     * @return
+     * @return calculation result or Double.Nan if operation not defined
      */
     @Override
     public Result calculate(final double firstArgument,
                             final double secondArgument,
                             final OperationName operation) {
+        if (operation == null) {
+            return new Result(NOT_DEFINED_OPERATION, Double.NaN);
+        }
         return switch (operation) {
             case PLUS -> this.add(firstArgument, secondArgument);
             case MINUS -> this.subtract(firstArgument, secondArgument);
