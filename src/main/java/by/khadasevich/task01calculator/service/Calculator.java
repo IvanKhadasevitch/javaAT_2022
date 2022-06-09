@@ -15,6 +15,26 @@ public final class Calculator implements Calculation {
     private static final String NOT_DEFINED_OPERATION =
             "Calculation operation not defined.";
     /**
+     * Message for user when result of addition out of double range.
+     */
+    private static final String ADDITION_OUT_OF_RANGE =
+            "Result of addition out of double range";
+    /**
+     * Message for user when result of subtraction out of double range.
+     */
+    private static final String SUBTRACTION_OUT_OF_RANGE =
+            "Result of subtraction out of double range";
+    /**
+     * Message for user when result of multiplication out of double range.
+     */
+    private static final String MULTIPLICATION_OUT_OF_RANGE =
+            "Result of multiplication out of double range";
+    /**
+     * Message for user when result of division out of double range.
+     */
+    private static final String DIVISION_OUT_OF_RANGE =
+            "Result of division out of double range";
+    /**
      * Singleton instance of Calculator.
      */
     public static final Calculator INSTANCE = new Calculator();
@@ -37,8 +57,7 @@ public final class Calculator implements Calculation {
         double additionResult = firstArgument + secondArgument;
         if (Double.valueOf(additionResult).isInfinite()
                 || Double.valueOf(additionResult).isNaN()) {
-            return new Result("Result of addition out of double range",
-                    additionResult);
+            return new Result(ADDITION_OUT_OF_RANGE, additionResult);
         } else {
             return formCalculationResult(firstArgument, secondArgument,
                     PLUS, additionResult);
@@ -55,8 +74,7 @@ public final class Calculator implements Calculation {
         double subtractionResult = firstArgument - secondArgument;
         if (Double.valueOf(subtractionResult).isInfinite()
                 || Double.valueOf(subtractionResult).isNaN()) {
-            return new Result("Result of subtraction out of double range",
-                    subtractionResult);
+            return new Result(SUBTRACTION_OUT_OF_RANGE, subtractionResult);
         } else {
             return formCalculationResult(firstArgument, secondArgument,
                     MINUS, subtractionResult);
@@ -73,7 +91,7 @@ public final class Calculator implements Calculation {
         double multiplicationResult = firstArgument * secondArgument;
         if (Double.valueOf(multiplicationResult).isInfinite()
                 || Double.valueOf(multiplicationResult).isNaN()) {
-            return new Result("Result of multiplication out of double range",
+            return new Result(MULTIPLICATION_OUT_OF_RANGE,
                     multiplicationResult);
         } else {
             return formCalculationResult(firstArgument, secondArgument,
@@ -91,8 +109,7 @@ public final class Calculator implements Calculation {
         double divisionResult = firstArgument / secondArgument;
         if (Double.valueOf(divisionResult).isInfinite()
                 || Double.valueOf(divisionResult).isNaN()) {
-            return new Result("Result of division out of double range",
-                    divisionResult);
+            return new Result(DIVISION_OUT_OF_RANGE, divisionResult);
         } else {
             return formCalculationResult(firstArgument, secondArgument,
                     DIVIDE, divisionResult);
